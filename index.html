@@ -1,0 +1,2762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Man O War FUTO Command - Login Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .military-bg {
+            background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 50%, #1a472a 100%);
+        }
+        .hero-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .hidden { display: none !important; }
+        .auth-bg {
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+        }
+        .admin-tab {
+            border-color: transparent;
+            color: #6b7280;
+        }
+        .admin-tab:hover {
+            color: #374151;
+            border-color: #d1d5db;
+        }
+        .admin-tab-active {
+            color: #059669;
+            border-color: #059669;
+        }
+        .line-clamp-1 {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+        }
+        .line-clamp-2 {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        .line-clamp-3 {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+        .login-bg {
+            background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 50%, #1a472a 100%);
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .mow-logo-bg {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cdefs%3E%3ClinearGradient id='grad1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23FFD700;stop-opacity:0.3' /%3E%3Cstop offset='100%25' style='stop-color:%23FFA500;stop-opacity:0.1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='100' cy='100' r='90' fill='url(%23grad1)' stroke='%23FFD700' stroke-width='3' opacity='0.4'/%3E%3Cpolygon points='100,30 130,70 170,70 140,100 150,140 100,120 50,140 60,100 30,70 70,70' fill='%23FFD700' opacity='0.6'/%3E%3Ctext x='100' y='160' text-anchor='middle' fill='%23FFD700' font-family='Arial, sans-serif' font-size='16' font-weight='bold' opacity='0.8'%3EMOW%3C/text%3E%3Ctext x='100' y='180' text-anchor='middle' fill='%23FFD700' font-family='Arial, sans-serif' font-size='10' opacity='0.6'%3EFUTO%3C/text%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 300px 300px;
+        }
+        
+        /* Comprehensive Responsive Design */
+        @media (max-width: 1024px) {
+            .mow-logo-bg {
+                background-size: 250px 250px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mow-logo-bg {
+                background-size: 200px 200px;
+            }
+            .hero-pattern {
+                background-size: 40px 40px;
+            }
+            
+            /* Text scaling for tablets */
+            .text-4xl { font-size: 2rem; }
+            .text-3xl { font-size: 1.75rem; }
+            .text-2xl { font-size: 1.5rem; }
+            .text-xl { font-size: 1.25rem; }
+            
+            /* Padding adjustments */
+            .py-16 { padding-top: 3rem; padding-bottom: 3rem; }
+            .py-12 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+            .px-8 { padding-left: 1.5rem; padding-right: 1.5rem; }
+            .px-6 { padding-left: 1rem; padding-right: 1rem; }
+        }
+        
+        @media (max-width: 640px) {
+            .mow-logo-bg {
+                background-size: 150px 150px;
+            }
+            
+            /* Mobile text scaling */
+            .text-5xl { font-size: 2rem; }
+            .text-4xl { font-size: 1.75rem; }
+            .text-3xl { font-size: 1.5rem; }
+            .text-2xl { font-size: 1.25rem; }
+            .text-xl { font-size: 1.125rem; }
+            .text-lg { font-size: 1rem; }
+            
+            /* Mobile spacing */
+            .py-20 { padding-top: 2rem; padding-bottom: 2rem; }
+            .py-16 { padding-top: 2rem; padding-bottom: 2rem; }
+            .py-12 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+            .py-8 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+            .px-8 { padding-left: 1rem; padding-right: 1rem; }
+            .px-6 { padding-left: 0.75rem; padding-right: 0.75rem; }
+            .px-4 { padding-left: 0.5rem; padding-right: 0.5rem; }
+            
+            /* Mobile margins */
+            .mb-12 { margin-bottom: 2rem; }
+            .mb-8 { margin-bottom: 1.5rem; }
+            .mb-6 { margin-bottom: 1rem; }
+            .mb-4 { margin-bottom: 0.75rem; }
+            
+            /* Mobile gaps */
+            .gap-12 { gap: 1.5rem; }
+            .gap-8 { gap: 1rem; }
+            .gap-6 { gap: 0.75rem; }
+            .space-x-6 > * + * { margin-left: 1rem; }
+            .space-x-4 > * + * { margin-left: 0.75rem; }
+            .space-x-3 > * + * { margin-left: 0.5rem; }
+        }
+        
+        @media (max-width: 480px) {
+            /* Extra small mobile adjustments */
+            .text-5xl { font-size: 1.75rem; }
+            .text-4xl { font-size: 1.5rem; }
+            .text-3xl { font-size: 1.25rem; }
+            .text-2xl { font-size: 1.125rem; }
+            
+            .py-16 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+            .py-12 { padding-top: 1rem; padding-bottom: 1rem; }
+            .px-6 { padding-left: 0.5rem; padding-right: 0.5rem; }
+            .px-4 { padding-left: 0.25rem; padding-right: 0.25rem; }
+        }
+        
+        /* Mobile Navigation */
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        /* Responsive Tables */
+        @media (max-width: 768px) {
+            .responsive-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .responsive-table table {
+                min-width: 600px;
+            }
+            
+            .responsive-table th,
+            .responsive-table td {
+                padding: 0.5rem;
+                font-size: 0.875rem;
+            }
+        }
+        
+        /* Modal Responsive */
+        .modal-content {
+            margin: 1rem;
+            max-height: calc(100vh - 2rem);
+            overflow-y: auto;
+        }
+        
+        @media (max-width: 640px) {
+            .modal-content {
+                margin: 0.5rem;
+                max-height: calc(100vh - 1rem);
+                border-radius: 0.5rem;
+            }
+            
+            .modal-content .p-6 {
+                padding: 1rem;
+            }
+            
+            .modal-content .p-4 {
+                padding: 0.75rem;
+            }
+        }
+        
+        /* Card Grid Responsive */
+        .responsive-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+        
+        @media (max-width: 768px) {
+            .responsive-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .responsive-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+        
+        /* Form Responsive */
+        @media (max-width: 640px) {
+            .grid.md\\:grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .grid.lg\\:grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .grid.grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .flex.sm\\:flex-row {
+                flex-direction: column;
+            }
+            
+            .space-x-3 > * + * {
+                margin-left: 0;
+                margin-top: 0.75rem;
+            }
+            
+            .space-x-4 > * + * {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+            
+            .space-x-6 > * + * {
+                margin-left: 0;
+                margin-top: 1.5rem;
+            }
+        }
+        
+        /* Dashboard Responsive */
+        @media (max-width: 1024px) {
+            .grid.lg\\:grid-cols-3 {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .grid.lg\\:grid-cols-5 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .grid.sm\\:grid-cols-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .grid.lg\\:grid-cols-5 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .grid.grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Button Responsive */
+        @media (max-width: 640px) {
+            .w-full.sm\\:w-auto {
+                width: 100%;
+            }
+            
+            .flex.sm\\:flex-row.items-center.justify-center.gap-3.sm\\:gap-4 {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            
+            .min-w-0.sm\\:min-w-80 {
+                min-width: 0;
+            }
+        }
+        
+        /* Navigation Responsive */
+        @media (max-width: 768px) {
+            .hidden.md\\:flex {
+                display: none !important;
+            }
+            
+            .md\\:hidden {
+                display: block;
+            }
+        }
+        
+        /* Text Responsive */
+        @media (max-width: 640px) {
+            .text-center.sm\\:text-left {
+                text-align: center;
+            }
+            
+            .hidden.sm\\:block {
+                display: none;
+            }
+            
+            .sm\\:hidden {
+                display: block;
+            }
+        }
+        
+        /* Overflow handling */
+        .overflow-hidden {
+            overflow: hidden;
+        }
+        
+        .overflow-x-auto {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .overflow-y-auto {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Touch targets */
+        @media (max-width: 768px) {
+            button, .cursor-pointer {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            
+            input, select, textarea {
+                min-height: 44px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Login Landing Page -->
+    <div id="loginLanding" class="min-h-screen login-bg flex items-center justify-center p-4">
+        <div class="max-w-6xl mx-auto w-full grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <!-- Left Side - Welcome Content -->
+            <div class="text-white fade-in order-2 lg:order-1">
+                <div class="flex flex-col sm:flex-row items-center sm:space-x-3 mb-6 lg:mb-8 text-center sm:text-left">
+                    <img src="https://manowarnigeria.org/wp-content/uploads/2023/05/cropped-MOW-LOGO-1-192x192.png" alt="Man O War Nigeria Logo" class="w-12 h-12 sm:w-16 sm:h-16 rounded-full border-2 border-white shadow-lg mb-3 sm:mb-0">
+                    <div>
+                        <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold">Man O War FUTO Command</h1>
+                        <p class="text-gray-300 text-sm sm:text-base">Federal University of Technology, Owerri</p>
+                    </div>
+                </div>
+                
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 lg:mb-6 text-center sm:text-left">Welcome to the Elite Force</h2>
+                <p class="text-base sm:text-lg lg:text-xl mb-6 lg:mb-8 text-gray-300 text-center sm:text-left">
+                    Join Nigeria's premier voluntary organization dedicated to national development, 
+                    discipline, and community service at FUTO.
+                </p>
+                
+                <div class="space-y-3 lg:space-y-4 mb-6 lg:mb-8">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-6 h-6 sm:w-8 sm:h-8 bg-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-black text-xs sm:text-sm">✓</span>
+                        </div>
+                        <span class="text-gray-300 text-sm sm:text-base">Character Building & Leadership Development</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-6 h-6 sm:w-8 sm:h-8 bg-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-black text-xs sm:text-sm">✓</span>
+                        </div>
+                        <span class="text-gray-300 text-sm sm:text-base">Military Training & Discipline</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-6 h-6 sm:w-8 sm:h-8 bg-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-black text-xs sm:text-sm">✓</span>
+                        </div>
+                        <span class="text-gray-300 text-sm sm:text-base">Community Service & National Integration</span>
+                    </div>
+                </div>
+                
+                <div class="bg-black bg-opacity-30 rounded-lg p-4 lg:p-6">
+                    <h4 class="text-base lg:text-lg font-semibold mb-2 text-yellow-400">Staff Advisor</h4>
+                    <p class="text-white font-semibold text-sm lg:text-base">Statesman Patriot Nnwakwukwu I. Nnwakwukwu</p>
+                    <p class="text-gray-300 text-xs lg:text-sm italic mt-2">
+                        "Leadership is not about being in charge. It is about taking care of those in your charge."
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Right Side - Login Forms -->
+            <div class="bg-white rounded-lg shadow-2xl p-6 lg:p-8 fade-in order-1 lg:order-2 w-full max-w-md mx-auto lg:max-w-none">
+                <!-- Login Form -->
+                <div id="loginFormContainer">
+                    <div class="text-center mb-8">
+                        <img src="https://manowarnigeria.org/wp-content/uploads/2023/05/cropped-MOW-LOGO-1-192x192.png" alt="Man O War Nigeria Logo" class="w-20 h-20 rounded-full border-2 border-green-600 shadow-lg mx-auto mb-4">
+                        <h3 class="text-2xl font-bold text-gray-800">Login to Your Account</h3>
+                        <p class="text-gray-600">Access your Man O War dashboard</p>
+                    </div>
+                    
+                    <form id="loginForm" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Email or Student ID</label>
+                            <input type="text" id="loginIdentifier" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+                            <input type="password" id="loginPassword" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm text-gray-600">Remember me</span>
+                            </label>
+                            <a href="#" class="text-sm text-green-600 hover:underline">Forgot password?</a>
+                        </div>
+                        <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
+                            Login
+                        </button>
+                    </form>
+                    
+                    <div class="mt-6 text-center">
+                        <p class="text-sm text-gray-600">Don't have an account? 
+                            <button onclick="showSignupForm()" class="text-green-600 hover:underline font-semibold">Sign up here</button>
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Signup Form -->
+                <div id="signupFormContainer" class="hidden">
+                    <div class="text-center mb-6">
+                        <img src="https://manowarnigeria.org/wp-content/uploads/2023/05/cropped-MOW-LOGO-1-192x192.png" alt="Man O War Nigeria Logo" class="w-20 h-20 rounded-full border-2 border-blue-600 shadow-lg mx-auto mb-4">
+                        <h3 class="text-2xl font-bold text-gray-800">Create Your Account</h3>
+                        <p class="text-gray-600">Join the Man O War community</p>
+                    </div>
+                    
+                    <form id="signupForm" class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">First Name</label>
+                                <input type="text" id="signupFirstName" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Last Name</label>
+                                <input type="text" id="signupLastName" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+                            <input type="email" id="signupEmail" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Student ID</label>
+                            <input type="text" id="signupStudentId" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+                            <input type="password" id="signupPassword" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Confirm Password</label>
+                            <input type="password" id="signupConfirmPassword" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Account Type</label>
+                            <select id="signupAccountType" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option value="">Select Account Type</option>
+                                <option value="student">Student</option>
+                                <option value="admin">Administrator</option>
+                            </select>
+                        </div>
+                        <div id="adminCode" class="hidden">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Admin Access Code</label>
+                            <input type="password" id="signupAdminCode" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter admin access code">
+                        </div>
+                        <div class="flex items-start">
+                            <input type="checkbox" id="signupTerms" required class="mt-1 mr-3 h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                            <label for="signupTerms" class="text-sm text-gray-700">
+                                I agree to the <a href="#" class="text-blue-600 hover:underline">Terms of Service</a> and <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a>
+                            </label>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                            Create Account
+                        </button>
+                    </form>
+                    
+                    <div class="mt-4 text-center">
+                        <p class="text-sm text-gray-600">Already have an account? 
+                            <button onclick="showLoginForm()" class="text-green-600 hover:underline font-semibold">Login here</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="mainNav" class="hidden military-bg text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-3">
+                    <img src="https://manowarnigeria.org/wp-content/uploads/2023/05/cropped-MOW-LOGO-1-192x192.png" alt="Man O War Nigeria Logo" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white shadow-lg">
+                    <div class="hidden sm:block">
+                        <h1 class="text-lg sm:text-xl font-bold">Man O War FUTO Command</h1>
+                        <p class="text-xs sm:text-sm text-gray-300">Federal University of Technology, Owerri</p>
+                    </div>
+                    <div class="sm:hidden">
+                        <h1 class="text-sm font-bold">MOW FUTO</h1>
+                    </div>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden text-white p-2" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <div id="guestNav" class="flex space-x-6">
+                        <a href="#home" class="hover:text-yellow-400 transition-colors">Home</a>
+                        <a href="#about" class="hover:text-yellow-400 transition-colors">About</a>
+                        <a href="#news" class="hover:text-yellow-400 transition-colors">News</a>
+                        <a href="#training" class="hover:text-yellow-400 transition-colors">Training</a>
+                        <a href="#register" class="hover:text-yellow-400 transition-colors">Register</a>
+                    </div>
+                    <div id="userNav" class="flex items-center space-x-4">
+                        <span id="welcomeUser" class="text-yellow-400 font-semibold hidden lg:inline"></span>
+                        <button onclick="logout()" class="bg-red-600 text-white px-3 py-2 rounded-lg font-semibold hover:bg-red-700 transition-colors text-sm">
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation Menu -->
+            <div id="mobileMenu" class="md:hidden mobile-menu fixed inset-y-0 left-0 w-64 bg-green-800 z-50 p-4">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-lg font-bold text-white">Menu</h2>
+                    <button onclick="toggleMobileMenu()" class="text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="space-y-4">
+                    <a href="#home" onclick="toggleMobileMenu()" class="block text-white hover:text-yellow-400 transition-colors py-2">Home</a>
+                    <a href="#about" onclick="toggleMobileMenu()" class="block text-white hover:text-yellow-400 transition-colors py-2">About</a>
+                    <a href="#news" onclick="toggleMobileMenu()" class="block text-white hover:text-yellow-400 transition-colors py-2">News</a>
+                    <a href="#training" onclick="toggleMobileMenu()" class="block text-white hover:text-yellow-400 transition-colors py-2">Training</a>
+                    <a href="#register" onclick="toggleMobileMenu()" class="block text-white hover:text-yellow-400 transition-colors py-2">Register</a>
+                    <div class="border-t border-green-700 pt-4 mt-4">
+                        <span id="mobileWelcomeUser" class="block text-yellow-400 font-semibold mb-2"></span>
+                        <button onclick="logout()" class="w-full bg-red-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-red-700 transition-colors">
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu Overlay -->
+            <div id="mobileMenuOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden" onclick="toggleMobileMenu()"></div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div id="mainContent" class="hidden">
+        <!-- Hero Section with Man O War Logo Background -->
+        <section id="home" class="military-bg hero-pattern mow-logo-bg text-white py-12 sm:py-16 lg:py-20 relative">
+            <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+            <div class="max-w-7xl mx-auto px-4 text-center fade-in relative z-10">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 lg:mb-6">Join the Elite Force</h2>
+                <p class="text-base sm:text-lg lg:text-xl mb-6 lg:mb-8 max-w-3xl mx-auto">
+                    Become part of Nigeria's premier voluntary organization dedicated to national development, 
+                    discipline, and community service at FUTO.
+                </p>
+                <div class="mb-6 lg:mb-8">
+                    <label for="warCouncilSelect" class="block text-sm sm:text-base lg:text-lg font-semibold mb-3">Past Supreme War Council Heads (2001-2025)</label>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+                        <select id="warCouncilSelect" class="bg-white text-black px-3 py-2 sm:px-4 sm:py-3 rounded-lg text-sm sm:text-base lg:text-lg w-full sm:w-auto min-w-0 sm:min-w-80 border-2 border-yellow-500">
+                            <option value="">Select a Former War Council Head</option>
+                            <option value="2001" data-regime="emeka">Comrade Emeka Okafor (2001)</option>
+                            <option value="2002" data-regime="chioma">Comrade Chioma Nwankwo (2002)</option>
+                            <option value="2003" data-regime="ikechukwu">Comrade Ikechukwu Eze (2003)</option>
+                            <option value="2004" data-regime="blessing">Comrade Blessing Okoro (2004)</option>
+                            <option value="2005" data-regime="chinedu">Comrade Chinedu Okonkwo (2005)</option>
+                            <option value="2006" data-regime="ngozi">Comrade Ngozi Adaora (2006)</option>
+                            <option value="2007" data-regime="kelechi">Comrade Kelechi Umeh (2007)</option>
+                            <option value="2008" data-regime="favour">Comrade Favour Chukwu (2008)</option>
+                        </select>
+                        <button id="viewRegimeBtn" class="w-full sm:w-auto bg-yellow-600 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg text-sm sm:text-base font-semibold hover:bg-yellow-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                            View Regime Members
+                        </button>
+                    </div>
+                </div>
+                <a href="#register" class="bg-yellow-500 text-black px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-base sm:text-lg font-bold hover:bg-yellow-400 transition-colors inline-block">
+                    Register Now
+                </a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h3 class="text-4xl font-bold text-gray-800 mb-4">About Man O War</h3>
+                    <div class="w-24 h-1 bg-yellow-500 mx-auto"></div>
+                </div>
+                
+                <!-- Staff Advisor Section -->
+                <div class="text-center mb-12 fade-in">
+                    <div class="bg-green-50 rounded-lg p-8 max-w-2xl mx-auto">
+                        <div class="w-32 h-32 bg-gray-300 rounded-full mx-auto mb-4 flex items-center justify-center">
+                            <svg class="w-16 h-16 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <h4 class="text-2xl font-bold text-green-800 mb-2">Staff Advisor</h4>
+                        <h5 class="text-xl font-semibold text-gray-800 mb-2">Statesman Patriot Nnwakwukwu I. Nnwakwukwu</h5>
+                        <p class="text-gray-700 italic">
+                            "Leadership is not about being in charge. It is about taking care of those in your charge."
+                        </p>
+                        <p class="text-sm text-gray-600 mt-2">
+                            Our dedicated staff advisor who guides and mentors the FUTO Command with wisdom and experience.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="fade-in">
+                        <h4 class="text-2xl font-bold text-green-800 mb-4">Man O War Nigeria</h4>
+                        <p class="text-gray-700 mb-4">
+                            The Man O War Association of Nigeria was established in 1986 as a voluntary, 
+                            non-political, and non-sectarian organization. It was created to instill discipline, 
+                            patriotism, and community service in Nigerian youths.
+                        </p>
+                        <p class="text-gray-700 mb-4">
+                            The organization focuses on character building, leadership development, and 
+                            national integration. It serves as a bridge between the military and civilian 
+                            populations, promoting peace and unity across Nigeria.
+                        </p>
+                        <p class="text-gray-700">
+                            Man O War operates in all 36 states of Nigeria and the Federal Capital Territory, 
+                            with commands in universities, polytechnics, and communities nationwide.
+                        </p>
+                    </div>
+                    
+                    <div class="fade-in">
+                        <h4 class="text-2xl font-bold text-green-800 mb-4">FUTO Command History</h4>
+                        <p class="text-gray-700 mb-4">
+                            The Man O War FUTO Command was established in 2001 as part of the university's 
+                            commitment to holistic student development. Since inception, it has trained over 
+                            2,000 students in leadership, discipline, and community service.
+                        </p>
+                        <p class="text-gray-700 mb-4">
+                            Our command has consistently been recognized as one of the most active and 
+                            disciplined units in the South-East region. We have participated in numerous 
+                            national assignments including election monitoring, disaster relief, and 
+                            community development projects.
+                        </p>
+                        <p class="text-gray-700">
+                            The FUTO Command has produced notable alumni who now serve in various 
+                            leadership positions across Nigeria, carrying forward the values of integrity, 
+                            service, and excellence.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Training Schedule -->
+        <section id="training" class="py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h3 class="text-4xl font-bold text-gray-800 mb-4">Training Schedule</h3>
+                    <div class="w-24 h-1 bg-yellow-500 mx-auto"></div>
+                </div>
+                
+                <div class="responsive-grid">
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center fade-in">
+                        <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-white text-2xl">🎺</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-3">Band Training</h4>
+                        <p class="text-gray-600 mb-4">Learn military band formations, marching techniques, and ceremonial protocols.</p>
+                        <div class="bg-green-100 rounded-lg p-4">
+                            <p class="font-semibold text-green-800">Tuesdays & Thursdays</p>
+                            <p class="text-green-700">4:00 PM - 7:00 PM</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center fade-in">
+                        <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-white text-2xl">💪</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-3">Morning Drills</h4>
+                        <p class="text-gray-600 mb-4">Physical fitness training, combat drills, and endurance building exercises.</p>
+                        <div class="bg-red-100 rounded-lg p-4">
+                            <p class="font-semibold text-red-800">Daily</p>
+                            <p class="text-red-700">4:00 AM - 10:00 AM</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center fade-in">
+                        <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-white text-2xl">📚</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-3">Orientation Classes</h4>
+                        <p class="text-gray-600 mb-4">Leadership training, Man O War history, and character development sessions.</p>
+                        <div class="bg-blue-100 rounded-lg p-4">
+                            <p class="font-semibold text-blue-800">Sundays</p>
+                            <p class="text-blue-700">3:00 PM - 6:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Latest News Section -->
+        <section id="news" class="py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h3 class="text-4xl font-bold text-gray-800 mb-4">Latest News & Updates</h3>
+                    <div class="w-24 h-1 bg-yellow-500 mx-auto mb-4"></div>
+                    <p class="text-gray-600">Stay informed with the latest news and announcements from Man O War FUTO Command</p>
+                </div>
+                
+                <div id="newsContainer" class="responsive-grid hidden">
+                    <!-- News articles will appear here -->
+                </div>
+                
+                <div id="noNewsMessage" class="text-center py-12">
+                    <div class="w-24 h-24 bg-gray-300 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-gray-600 text-4xl">📰</span>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-800 mb-4">No News Available</h4>
+                    <p class="text-gray-600 mb-6">Check back later for the latest updates and announcements.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Registration Section -->
+        <section id="register" class="py-16 bg-white">
+            <div class="max-w-4xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h3 class="text-4xl font-bold text-gray-800 mb-4">Join Our Command</h3>
+                    <div class="w-24 h-1 bg-yellow-500 mx-auto mb-4"></div>
+                    <p class="text-gray-600">Ready to serve your nation? Complete the registration form below.</p>
+                </div>
+                
+                <div class="bg-gray-50 rounded-lg shadow-lg p-8">
+                    <form id="registrationForm" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
+                                <input type="text" id="fullName" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Student ID *</label>
+                                <input type="text" id="studentId" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Email Address *</label>
+                                <input type="email" id="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Phone Number *</label>
+                                <input type="tel" id="phone" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Faculty *</label>
+                                <select id="faculty" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                                    <option value="">Select Faculty</option>
+                                    <option value="Engineering">Faculty of Engineering</option>
+                                    <option value="Physical Sciences">Faculty of Physical Sciences</option>
+                                    <option value="Biological Sciences">Faculty of Biological Sciences</option>
+                                    <option value="Agriculture">Faculty of Agriculture</option>
+                                    <option value="Environmental Sciences">Faculty of Environmental Sciences</option>
+                                    <option value="Management Technology">Faculty of Management Technology</option>
+                                    <option value="Information and Communication Technology">Faculty of Information and Communication Technology</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Department *</label>
+                                <input type="text" id="department" required placeholder="Enter your department" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Level *</label>
+                                <select id="level" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                                    <option value="">Select Level</option>
+                                    <option value="100">100 Level</option>
+                                    <option value="200">200 Level</option>
+                                    <option value="300">300 Level</option>
+                                    <option value="400">400 Level</option>
+                                    <option value="500">500 Level</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Location/Address *</label>
+                                <input type="text" id="location" required placeholder="Enter your current address" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Passport Photograph *</label>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-green-500 transition-colors">
+                                <input type="file" id="passport" accept="image/*" required class="hidden">
+                                <div id="photoPreview" class="mb-4">
+                                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <p class="text-gray-500">Click to upload passport photograph</p>
+                                    <p class="text-xs text-gray-400">PNG, JPG up to 5MB</p>
+                                </div>
+                                <button type="button" onclick="document.getElementById('passport').click()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                                    Choose Photo
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Why do you want to join Man O War? *</label>
+                            <textarea id="motivation" required rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Tell us your motivation for joining..."></textarea>
+                        </div>
+                        
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
+                            <div class="flex items-start">
+                                <input type="checkbox" id="agreement" required class="mt-1 mr-3 h-5 w-5 text-green-600 focus:ring-green-500 border-gray-300 rounded">
+                                <label for="agreement" class="text-sm text-gray-700">
+                                    <span class="font-semibold">Commitment Agreement:</span> I understand and agree that joining Man O War FUTO Command requires complete dedication, discipline, and willingness to undertake any lawful assignment given by the command. I am prepared for rigorous training, early morning drills, and to serve my nation with honor and integrity. I commit to upholding the values and traditions of Man O War Nigeria. *
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button type="submit" class="bg-green-600 text-white px-8 py-4 rounded-lg text-lg font-bold hover:bg-green-700 transition-colors">
+                                Submit Registration
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Regime Members Modal -->
+        <div id="regimeModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50">
+            <div class="flex items-center justify-center min-h-screen p-4">
+                <div class="bg-white rounded-lg shadow-xl max-w-3xl w-full max-h-96 overflow-hidden">
+                    <div class="bg-green-600 text-white p-4 flex justify-between items-center">
+                        <h3 id="regimeTitle" class="text-xl font-bold">Regime Members</h3>
+                        <button onclick="closeRegimeModal()" class="text-white hover:text-gray-300">
+                            <span class="text-2xl">&times;</span>
+                        </button>
+                    </div>
+                    <div class="p-6 overflow-y-auto max-h-80">
+                        <div id="regimeMembers" class="grid md:grid-cols-2 gap-4">
+                            <!-- Regime members will appear here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Dashboard -->
+    <div id="userDashboard" class="hidden min-h-screen bg-gray-100">
+        <!-- User Navigation -->
+        <nav class="military-bg text-white shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center py-4">
+                    <div class="flex items-center space-x-3">
+                        <img src="https://manowarnigeria.org/wp-content/uploads/2023/05/cropped-MOW-LOGO-1-192x192.png" alt="Man O War Nigeria Logo" class="w-12 h-12 rounded-full border-2 border-white shadow-lg">
+                        <div>
+                            <h1 class="text-xl font-bold">Student Dashboard</h1>
+                            <p class="text-sm text-gray-300">Man O War FUTO Command</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span id="userDashboardName" class="text-yellow-400 font-semibold"></span>
+                        <button onclick="logout()" class="bg-red-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-red-700 transition-colors">
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Dashboard Content -->
+        <div class="max-w-7xl mx-auto px-4 py-6 lg:py-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+                <!-- Profile Card -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="text-center mb-6">
+                        <div class="w-24 h-24 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-white text-3xl font-bold" id="userInitials">U</span>
+                        </div>
+                        <h3 id="userProfileName" class="text-xl font-bold text-gray-800">User Name</h3>
+                        <p id="userProfileId" class="text-gray-600">Student ID</p>
+                        <p id="userProfileEmail" class="text-gray-600">Email</p>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Status:</span>
+                            <span id="userStatus" class="text-green-600 font-semibold">Active</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Joined:</span>
+                            <span id="userJoinDate" class="text-gray-800">Date</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h4 class="text-lg font-bold text-gray-800 mb-4">Quick Actions</h4>
+                    <div class="space-y-3">
+                        <button onclick="showRegistrationForm()" class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
+                            Complete Registration
+                        </button>
+                        <button onclick="viewTrainingSchedule()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                            View Training Schedule
+                        </button>
+                        <button onclick="viewHistory()" class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors">
+                            View War Council History
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Latest News -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="text-lg font-bold text-gray-800">Latest News</h4>
+                        <button onclick="viewAllNews()" class="text-blue-600 hover:text-blue-800 text-sm">View All</button>
+                    </div>
+                    <div id="userDashboardNews" class="space-y-3">
+                        <!-- Latest news will appear here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Registration Status -->
+            <div class="mt-8 bg-white rounded-lg shadow-lg p-6">
+                <h4 class="text-lg font-bold text-gray-800 mb-4">Registration Status</h4>
+                <div id="registrationStatus" class="text-center py-8">
+                    <div class="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-gray-600 text-2xl">📝</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">You haven't completed your Man O War registration yet.</p>
+                    <button onclick="showRegistrationForm()" class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
+                        Complete Registration Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="hidden min-h-screen bg-gray-100">
+        <!-- Admin Navigation -->
+        <nav class="military-bg text-white shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center py-4">
+                    <div class="flex items-center space-x-3">
+                        <img src="https://manowarnigeria.org/wp-content/uploads/2023/05/cropped-MOW-LOGO-1-192x192.png" alt="Man O War Nigeria Logo" class="w-12 h-12 rounded-full border-2 border-white shadow-lg">
+                        <div>
+                            <h1 class="text-xl font-bold">Admin Dashboard</h1>
+                            <p class="text-sm text-gray-300">Man O War FUTO Command</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span id="adminDashboardName" class="text-yellow-400 font-semibold"></span>
+                        <button onclick="logout()" class="bg-red-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-red-700 transition-colors">
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Admin Content -->
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <!-- Admin Navigation Tabs -->
+            <div class="mb-8">
+                <div class="border-b border-gray-200">
+                    <nav class="-mb-px flex space-x-8">
+                        <button onclick="showAdminTab('dashboard')" id="dashboardTab" class="admin-tab-active border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">
+                            📊 Dashboard
+                        </button>
+                        <button onclick="showAdminTab('members')" id="membersTab" class="admin-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">
+                            👥 Members
+                        </button>
+                        <button onclick="showAdminTab('news')" id="newsTab" class="admin-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">
+                            📰 News Management
+                        </button>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Dashboard Tab -->
+            <div id="dashboardContent" class="admin-tab-content">
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6 mb-8">
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                        <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-white text-xl">👥</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-800" id="totalUsers">0</h4>
+                        <p class="text-gray-600">Total Users</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                        <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-white text-xl">📝</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-800" id="totalRegistrations">0</h4>
+                        <p class="text-gray-600">Registrations</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                        <div class="w-12 h-12 bg-yellow-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-white text-xl">⏳</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-800" id="pendingReviews">0</h4>
+                        <p class="text-gray-600">Pending Reviews</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                        <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-white text-xl">✅</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-800" id="approvedMembers">0</h4>
+                        <p class="text-gray-600">Approved Members</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                        <div class="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-white text-xl">📰</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-800" id="totalNewsArticles">0</h4>
+                        <p class="text-gray-600">News Articles</p>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Recent Registrations -->
+                    <div class="bg-white rounded-lg shadow-lg">
+                        <div class="p-6 border-b border-gray-200">
+                            <h4 class="text-lg font-bold text-gray-800">Recent Registrations</h4>
+                        </div>
+                        <div class="p-6">
+                            <div id="recentRegistrations" class="space-y-3">
+                                <!-- Recent registrations will appear here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent News -->
+                    <div class="bg-white rounded-lg shadow-lg">
+                        <div class="p-6 border-b border-gray-200">
+                            <div class="flex justify-between items-center">
+                                <h4 class="text-lg font-bold text-gray-800">Recent News Articles</h4>
+                                <button onclick="showAdminTab('news')" class="text-blue-600 hover:text-blue-800 text-sm">View All</button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div id="recentNews" class="space-y-3">
+                                <!-- Recent news will appear here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Members Tab -->
+            <div id="membersContent" class="admin-tab-content hidden">
+                <div class="bg-white rounded-lg shadow-lg">
+                    <div class="p-6 border-b border-gray-200">
+                        <div class="flex justify-between items-center">
+                            <h4 class="text-lg font-bold text-gray-800">Registered Members</h4>
+                            <div class="flex space-x-3">
+                                <button onclick="exportData()" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                                    📊 Export Data
+                                </button>
+                                <button onclick="refreshData()" class="bg-green-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-700 transition-colors">
+                                    🔄 Refresh
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto responsive-table">
+                        <table class="w-full min-w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student ID</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Faculty</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Level</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminMembersTable" class="bg-white divide-y divide-gray-200">
+                                <!-- Members will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Management Tab -->
+            <div id="newsContent" class="admin-tab-content hidden">
+                <!-- News Management Header -->
+                <div class="bg-white rounded-lg shadow-lg mb-8">
+                    <div class="p-6 border-b border-gray-200">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-800">News Management</h4>
+                                <p class="text-gray-600">Create and manage news articles for the Man O War community</p>
+                            </div>
+                            <button onclick="showAddNewsModal()" class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
+                                ➕ Add New Article
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- News Stats -->
+                    <div class="p-6">
+                        <div class="grid md:grid-cols-4 gap-6">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-blue-600" id="publishedNewsCount">0</div>
+                                <div class="text-sm text-gray-600">Published Articles</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-yellow-600" id="draftNewsCount">0</div>
+                                <div class="text-sm text-gray-600">Draft Articles</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-green-600" id="totalNewsViews">0</div>
+                                <div class="text-sm text-gray-600">Total Views</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-purple-600" id="urgentNewsCount">0</div>
+                                <div class="text-sm text-gray-600">Urgent Articles</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Articles List -->
+                <div class="bg-white rounded-lg shadow-lg">
+                    <div class="p-6 border-b border-gray-200">
+                        <h4 class="text-lg font-bold text-gray-800">All News Articles</h4>
+                    </div>
+                    <div class="p-6">
+                        <div id="adminNewsContainer" class="space-y-4">
+                            <!-- News articles will appear here -->
+                        </div>
+                        <div id="noAdminNewsMessage" class="text-center py-8 hidden">
+                            <div class="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-gray-600 text-2xl">📰</span>
+                            </div>
+                            <p class="text-gray-600 mb-4">No news articles found</p>
+                            <button onclick="showAddNewsModal()" class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
+                                Create Your First Article
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add News Modal -->
+        <div id="addNewsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50">
+            <div class="flex items-center justify-center min-h-screen p-4">
+                <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-96 overflow-hidden modal-content">
+                    <div class="bg-green-600 text-white p-4 flex justify-between items-center">
+                        <h3 class="text-xl font-bold">Add News Article</h3>
+                        <button onclick="closeAddNewsModal()" class="text-white hover:text-gray-300">
+                            <span class="text-2xl">&times;</span>
+                        </button>
+                    </div>
+                    <div class="p-6 overflow-y-auto max-h-80">
+                        <form id="addNewsForm" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Article Title *</label>
+                                <input type="text" id="newsTitle" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Enter article title">
+                            </div>
+                            
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Category *</label>
+                                    <select id="newsCategory" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                                        <option value="">Select Category</option>
+                                        <option value="Training">Training</option>
+                                        <option value="Events">Events</option>
+                                        <option value="Announcements">Announcements</option>
+                                        <option value="Achievements">Achievements</option>
+                                        <option value="General">General</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Priority Level *</label>
+                                    <select id="newsPriority" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                                        <option value="normal">Normal</option>
+                                        <option value="high">High Priority</option>
+                                        <option value="urgent">Urgent</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Article Content *</label>
+                                <textarea id="newsContent" required rows="8" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Write your article content here..."></textarea>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <input type="checkbox" id="newsPublishImmediately" checked class="mr-3 h-5 w-5 text-green-600 focus:ring-green-500 border-gray-300 rounded">
+                                <label for="newsPublishImmediately" class="text-sm text-gray-700">
+                                    Publish immediately (uncheck to save as draft)
+                                </label>
+                            </div>
+                            
+                            <div class="flex justify-end space-x-3 pt-4">
+                                <button type="button" onclick="closeAddNewsModal()" class="bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-400 transition-colors">
+                                    Cancel
+                                </button>
+                                <button type="submit" id="publishButton" class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
+                                    Publish Article
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- News Detail Modal -->
+        <div id="newsDetailModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50">
+            <div class="flex items-center justify-center min-h-screen p-4">
+                <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-96 overflow-hidden modal-content">
+                    <div class="bg-blue-600 text-white p-4 flex justify-between items-center">
+                        <h3 id="newsDetailTitle" class="text-xl font-bold">Article Title</h3>
+                        <button onclick="closeNewsDetailModal()" class="text-white hover:text-gray-300">
+                            <span class="text-2xl">&times;</span>
+                        </button>
+                    </div>
+                    <div class="p-6 overflow-y-auto max-h-80">
+                        <div id="newsDetailContent">
+                            <!-- Article content will appear here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="mainFooter" class="hidden military-bg text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="mb-4">
+                <h4 class="text-xl font-bold mb-2">Man O War FUTO Command</h4>
+                <p class="text-gray-300">Building Leaders, Serving Nigeria</p>
+            </div>
+            <div class="border-t border-gray-600 pt-4">
+                <p class="text-sm text-gray-400">© 2025 Man O War FUTO Command. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Authentication and data storage
+        let users = JSON.parse(localStorage.getItem('mowUsers')) || [];
+        let registeredMembers = JSON.parse(localStorage.getItem('mowRegistrations')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+        let adminNotifications = JSON.parse(localStorage.getItem('mowAdminNotifications')) || [];
+        let newsArticles = JSON.parse(localStorage.getItem('mowNewsArticles')) || [];
+        
+        // Admin access code
+        const ADMIN_CODE = 'MOW2025ADMIN';
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatus();
+            initializeEventListeners();
+        });
+
+        // Mobile menu toggle function
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('mobileMenuOverlay');
+            
+            if (mobileMenu.classList.contains('open')) {
+                mobileMenu.classList.remove('open');
+                overlay.classList.add('hidden');
+            } else {
+                mobileMenu.classList.add('open');
+                overlay.classList.remove('hidden');
+            }
+        }
+
+        function checkAuthStatus() {
+            if (currentUser) {
+                if (currentUser.accountType === 'admin') {
+                    showAdminDashboard();
+                } else {
+                    showUserDashboard();
+                }
+            } else {
+                showLoginLanding();
+            }
+        }
+
+        function initializeEventListeners() {
+            // Login form
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+            
+            // Signup form
+            document.getElementById('signupForm').addEventListener('submit', handleSignup);
+            
+            // Registration form
+            document.getElementById('registrationForm').addEventListener('submit', handleRegistration);
+            
+            // News form
+            document.getElementById('addNewsForm').addEventListener('submit', handleAddNews);
+            
+            // Account type change
+            document.getElementById('signupAccountType').addEventListener('change', function() {
+                const adminCodeDiv = document.getElementById('adminCode');
+                if (this.value === 'admin') {
+                    adminCodeDiv.classList.remove('hidden');
+                    document.getElementById('signupAdminCode').required = true;
+                } else {
+                    adminCodeDiv.classList.add('hidden');
+                    document.getElementById('signupAdminCode').required = false;
+                }
+            });
+            
+            // Publish immediately checkbox change
+            document.addEventListener('change', function(e) {
+                if (e.target && e.target.id === 'newsPublishImmediately') {
+                    const publishButton = document.getElementById('publishButton');
+                    if (publishButton) {
+                        publishButton.textContent = e.target.checked ? 'Publish Article' : 'Save as Draft';
+                        publishButton.className = e.target.checked ? 
+                            'bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors' :
+                            'bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors';
+                    }
+                }
+            });
+        }
+
+        // UI Control Functions
+        function showLoginLanding() {
+            document.getElementById('loginLanding').classList.remove('hidden');
+            document.getElementById('mainContent').classList.add('hidden');
+            document.getElementById('userDashboard').classList.add('hidden');
+            document.getElementById('adminDashboard').classList.add('hidden');
+            document.getElementById('mainNav').classList.add('hidden');
+            document.getElementById('mainFooter').classList.add('hidden');
+        }
+
+        function showMainContent() {
+            document.getElementById('loginLanding').classList.add('hidden');
+            document.getElementById('mainContent').classList.remove('hidden');
+            document.getElementById('userDashboard').classList.add('hidden');
+            document.getElementById('adminDashboard').classList.add('hidden');
+            document.getElementById('mainNav').classList.remove('hidden');
+            document.getElementById('mainFooter').classList.remove('hidden');
+            document.getElementById('guestNav').classList.remove('hidden');
+            document.getElementById('userNav').classList.remove('hidden');
+        }
+
+        function showUserDashboard() {
+            document.getElementById('loginLanding').classList.add('hidden');
+            document.getElementById('mainContent').classList.add('hidden');
+            document.getElementById('userDashboard').classList.remove('hidden');
+            document.getElementById('adminDashboard').classList.add('hidden');
+            document.getElementById('mainNav').classList.add('hidden');
+            document.getElementById('mainFooter').classList.add('hidden');
+            
+            updateUserDashboard();
+        }
+
+        function showAdminDashboard() {
+            document.getElementById('loginLanding').classList.add('hidden');
+            document.getElementById('mainContent').classList.add('hidden');
+            document.getElementById('userDashboard').classList.add('hidden');
+            document.getElementById('adminDashboard').classList.remove('hidden');
+            document.getElementById('mainNav').classList.add('hidden');
+            document.getElementById('mainFooter').classList.add('hidden');
+            
+            updateAdminDashboard();
+        }
+
+        // Form switching functions
+        function showLoginForm() {
+            document.getElementById('loginFormContainer').classList.remove('hidden');
+            document.getElementById('signupFormContainer').classList.add('hidden');
+        }
+
+        function showSignupForm() {
+            document.getElementById('loginFormContainer').classList.add('hidden');
+            document.getElementById('signupFormContainer').classList.remove('hidden');
+        }
+
+        // Authentication functions
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            const identifier = document.getElementById('loginIdentifier').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            const user = users.find(u => 
+                (u.email === identifier || u.studentId === identifier) && u.password === password
+            );
+            
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                if (user.accountType === 'admin') {
+                    showAdminDashboard();
+                } else {
+                    showUserDashboard();
+                }
+                
+                showNotification('Login successful!', 'success');
+            } else {
+                showNotification('Invalid credentials. Please try again.', 'error');
+            }
+        }
+
+        function handleSignup(e) {
+            e.preventDefault();
+            
+            const firstName = document.getElementById('signupFirstName').value;
+            const lastName = document.getElementById('signupLastName').value;
+            const email = document.getElementById('signupEmail').value;
+            const studentId = document.getElementById('signupStudentId').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+            const accountType = document.getElementById('signupAccountType').value;
+            const adminCode = document.getElementById('signupAdminCode').value;
+            
+            // Validation
+            if (password !== confirmPassword) {
+                showNotification('Passwords do not match!', 'error');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showNotification('Password must be at least 6 characters long!', 'error');
+                return;
+            }
+            
+            // Check if user already exists
+            if (users.find(u => u.email === email || u.studentId === studentId)) {
+                showNotification('User with this email or student ID already exists!', 'error');
+                return;
+            }
+            
+            // Validate admin code
+            if (accountType === 'admin' && adminCode !== ADMIN_CODE) {
+                showNotification('Invalid admin access code!', 'error');
+                return;
+            }
+            
+            // Create new user
+            const newUser = {
+                id: Date.now(),
+                firstName,
+                lastName,
+                fullName: `${firstName} ${lastName}`,
+                email,
+                studentId,
+                password,
+                accountType,
+                joinDate: new Date().toLocaleDateString(),
+                status: 'active'
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('mowUsers', JSON.stringify(users));
+            
+            document.getElementById('signupForm').reset();
+            document.getElementById('adminCode').classList.add('hidden');
+            showNotification('Account created successfully! Please login.', 'success');
+            showLoginForm();
+        }
+
+        function handleRegistration(e) {
+            e.preventDefault();
+            
+            if (!currentUser) {
+                showNotification('Please login first to complete registration.', 'error');
+                return;
+            }
+            
+            // Validate required fields
+            const requiredFields = ['fullName', 'studentId', 'email', 'phone', 'faculty', 'department', 'level', 'location', 'motivation'];
+            const missingFields = [];
+            
+            requiredFields.forEach(field => {
+                const value = document.getElementById(field).value.trim();
+                if (!value) {
+                    missingFields.push(field.replace(/([A-Z])/g, ' $1').toLowerCase());
+                }
+            });
+            
+            if (missingFields.length > 0) {
+                showNotification(`Please fill in all required fields: ${missingFields.join(', ')}`, 'error');
+                return;
+            }
+            
+            // Check if passport photo is uploaded
+            const passportFile = document.getElementById('passport').files[0];
+            if (!passportFile) {
+                showNotification('Please upload your passport photograph.', 'error');
+                return;
+            }
+            
+            // Check agreement checkbox
+            if (!document.getElementById('agreement').checked) {
+                showNotification('Please accept the commitment agreement to proceed.', 'error');
+                return;
+            }
+            
+            // Check if user already has a pending or approved registration
+            const existingRegistration = registeredMembers.find(r => r.userId === currentUser.id);
+            if (existingRegistration) {
+                showNotification(`You already have a ${existingRegistration.status} registration. Please contact admin for assistance.`, 'warning');
+                return;
+            }
+            
+            // Create registration data with enhanced information
+            const formData = {
+                id: Date.now(),
+                userId: currentUser.id,
+                userAccountInfo: {
+                    firstName: currentUser.firstName,
+                    lastName: currentUser.lastName,
+                    accountEmail: currentUser.email,
+                    accountStudentId: currentUser.studentId,
+                    joinDate: currentUser.joinDate
+                },
+                fullName: document.getElementById('fullName').value.trim(),
+                studentId: document.getElementById('studentId').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                faculty: document.getElementById('faculty').value,
+                department: document.getElementById('department').value.trim(),
+                level: document.getElementById('level').value,
+                location: document.getElementById('location').value.trim(),
+                passport: {
+                    fileName: passportFile.name,
+                    fileSize: passportFile.size,
+                    fileType: passportFile.type,
+                    uploadDate: new Date().toISOString()
+                },
+                motivation: document.getElementById('motivation').value.trim(),
+                agreement: document.getElementById('agreement').checked,
+                registrationDate: new Date().toLocaleDateString(),
+                registrationTime: new Date().toLocaleTimeString(),
+                submissionTimestamp: new Date().toISOString(),
+                status: 'pending',
+                adminNotes: '',
+                reviewDate: null,
+                reviewedBy: null
+            };
+            
+            // Validate data consistency
+            if (formData.studentId !== currentUser.studentId) {
+                showNotification('Student ID in form must match your account Student ID.', 'error');
+                return;
+            }
+            
+            if (formData.email !== currentUser.email) {
+                showNotification('Email in form must match your account email.', 'error');
+                return;
+            }
+            
+            // Add to registered members for admin review
+            registeredMembers.push(formData);
+            localStorage.setItem('mowRegistrations', JSON.stringify(registeredMembers));
+            
+            // Update user registration status
+            currentUser.hasRegistered = true;
+            currentUser.registrationStatus = 'pending';
+            currentUser.registrationId = formData.id;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            // Update users array
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex].hasRegistered = true;
+                users[userIndex].registrationStatus = 'pending';
+                users[userIndex].registrationId = formData.id;
+                localStorage.setItem('mowUsers', JSON.stringify(users));
+            }
+            
+            // Create notification for admins
+            createAdminNotification({
+                type: 'new_registration',
+                message: `New registration submitted by ${formData.fullName} (${formData.studentId})`,
+                registrationId: formData.id,
+                timestamp: new Date().toISOString(),
+                priority: 'normal'
+            });
+            
+            showNotification('Registration submitted successfully! Your application is now under review by the admin team. You will be notified once it has been processed.', 'success');
+            
+            // Reset form and update dashboard
+            document.getElementById('registrationForm').reset();
+            document.getElementById('photoPreview').innerHTML = `
+                <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <p class="text-gray-500">Click to upload passport photograph</p>
+                <p class="text-xs text-gray-400">PNG, JPG up to 5MB</p>
+            `;
+            
+            updateRegistrationStatus();
+            
+            // Auto-scroll to top of page
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateUserDashboard() {
+            if (!currentUser) return;
+            
+            // Update user info
+            document.getElementById('userDashboardName').textContent = currentUser.fullName;
+            document.getElementById('welcomeUser').textContent = `Welcome, ${currentUser.firstName}`;
+            document.getElementById('mobileWelcomeUser').textContent = `Welcome, ${currentUser.firstName}`;
+            document.getElementById('userProfileName').textContent = currentUser.fullName;
+            document.getElementById('userProfileId').textContent = currentUser.studentId;
+            document.getElementById('userProfileEmail').textContent = currentUser.email;
+            document.getElementById('userJoinDate').textContent = currentUser.joinDate;
+            
+            // Set user initials
+            const initials = currentUser.firstName.charAt(0) + currentUser.lastName.charAt(0);
+            document.getElementById('userInitials').textContent = initials.toUpperCase();
+            
+            updateRegistrationStatus();
+            updateNewsDisplay();
+        }
+
+        function updateRegistrationStatus() {
+            const statusDiv = document.getElementById('registrationStatus');
+            const userRegistration = registeredMembers.find(r => r.userId === currentUser.id);
+            
+            if (userRegistration) {
+                let statusIcon, statusColor, statusText, statusMessage;
+                
+                switch (userRegistration.status) {
+                    case 'pending':
+                        statusIcon = '⏳';
+                        statusColor = 'yellow';
+                        statusText = 'Under Review';
+                        statusMessage = 'Your registration is being reviewed by the admin team. Please wait for approval.';
+                        break;
+                    case 'approved':
+                        statusIcon = '✅';
+                        statusColor = 'green';
+                        statusText = 'Approved';
+                        statusMessage = 'Congratulations! Your registration has been approved. Welcome to Man O War FUTO Command!';
+                        break;
+                    case 'rejected':
+                        statusIcon = '❌';
+                        statusColor = 'red';
+                        statusText = 'Rejected';
+                        statusMessage = 'Your registration was not approved. Please contact admin for more information.';
+                        break;
+                    default:
+                        statusIcon = '📝';
+                        statusColor = 'gray';
+                        statusText = 'Submitted';
+                        statusMessage = 'Your registration has been submitted.';
+                }
+                
+                statusDiv.innerHTML = `
+                    <div class="w-16 h-16 bg-${statusColor}-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-white text-2xl">${statusIcon}</span>
+                    </div>
+                    <p class="text-${statusColor}-600 font-semibold mb-2">Registration ${statusText}!</p>
+                    <p class="text-gray-600 mb-4">${statusMessage}</p>
+                    <div class="bg-gray-50 rounded-lg p-4 text-left">
+                        <p class="text-sm text-gray-600 mb-2"><strong>Submitted:</strong> ${userRegistration.registrationDate} at ${userRegistration.registrationTime}</p>
+                        <p class="text-sm text-gray-600 mb-2"><strong>Status:</strong> ${userRegistration.status.charAt(0).toUpperCase() + userRegistration.status.slice(1)}</p>
+                        ${userRegistration.reviewDate ? `<p class="text-sm text-gray-600 mb-2"><strong>Reviewed:</strong> ${userRegistration.reviewDate}</p>` : ''}
+                        ${userRegistration.adminNotes ? `<p class="text-sm text-gray-600"><strong>Admin Notes:</strong> ${userRegistration.adminNotes}</p>` : ''}
+                    </div>
+                `;
+            }
+        }
+
+        // Admin notification system
+        function createAdminNotification(notification) {
+            adminNotifications.unshift({
+                id: Date.now(),
+                ...notification,
+                read: false,
+                createdAt: new Date().toISOString()
+            });
+            localStorage.setItem('mowAdminNotifications', JSON.stringify(adminNotifications));
+        }
+
+        function markNotificationAsRead(notificationId) {
+            const notification = adminNotifications.find(n => n.id === notificationId);
+            if (notification) {
+                notification.read = true;
+                localStorage.setItem('mowAdminNotifications', JSON.stringify(adminNotifications));
+            }
+        }
+
+        function getUnreadNotificationsCount() {
+            return adminNotifications.filter(n => !n.read).length;
+        }
+
+        function updateAdminDashboard() {
+            if (!currentUser) return;
+            
+            document.getElementById('adminDashboardName').textContent = currentUser.fullName;
+            document.getElementById('welcomeUser').textContent = `Welcome, ${currentUser.firstName}`;
+            
+            // Update stats
+            document.getElementById('totalUsers').textContent = users.filter(u => u.accountType === 'student').length;
+            document.getElementById('totalRegistrations').textContent = registeredMembers.length;
+            document.getElementById('pendingReviews').textContent = registeredMembers.filter(r => r.status === 'pending').length;
+            document.getElementById('approvedMembers').textContent = registeredMembers.filter(r => r.status === 'approved').length;
+            document.getElementById('totalNewsArticles').textContent = newsArticles.length;
+            
+            updateAdminMembersTable();
+            updateAdminNotifications();
+            updateAdminNewsDisplay();
+            updateNewsStats();
+            updateRecentActivity();
+        }
+
+        // Admin tab switching
+        function showAdminTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.admin-tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.admin-tab, .admin-tab-active').forEach(tab => {
+                tab.className = 'admin-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm';
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName + 'Content').classList.remove('hidden');
+            
+            // Add active class to selected tab
+            document.getElementById(tabName + 'Tab').className = 'admin-tab-active border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm';
+            
+            // Update content based on tab
+            if (tabName === 'members') {
+                updateAdminMembersTable();
+            } else if (tabName === 'news') {
+                updateAdminNewsDisplay();
+                updateNewsStats();
+            } else if (tabName === 'dashboard') {
+                updateRecentActivity();
+                updateNewsStats();
+            }
+        }
+
+        function updateNewsStats() {
+            const publishedCount = newsArticles.filter(a => a.published).length;
+            const draftCount = newsArticles.filter(a => !a.published).length;
+            const totalViews = newsArticles.reduce((sum, a) => sum + (a.views || 0), 0);
+            const urgentCount = newsArticles.filter(a => a.priority === 'urgent').length;
+            
+            document.getElementById('publishedNewsCount').textContent = publishedCount;
+            document.getElementById('draftNewsCount').textContent = draftCount;
+            document.getElementById('totalNewsViews').textContent = totalViews;
+            document.getElementById('urgentNewsCount').textContent = urgentCount;
+        }
+
+        function updateRecentActivity() {
+            // Update recent registrations
+            const recentRegs = registeredMembers.slice(0, 5);
+            const recentRegistrationsContainer = document.getElementById('recentRegistrations');
+            
+            if (recentRegs.length === 0) {
+                recentRegistrationsContainer.innerHTML = '<p class="text-gray-500 text-center">No recent registrations</p>';
+            } else {
+                recentRegistrationsContainer.innerHTML = recentRegs.map(reg => `
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div>
+                            <p class="font-semibold text-gray-800">${reg.fullName}</p>
+                            <p class="text-sm text-gray-600">${reg.studentId} • ${reg.faculty}</p>
+                        </div>
+                        <span class="px-2 py-1 text-xs rounded ${
+                            reg.status === 'approved' ? 'bg-green-100 text-green-800' :
+                            reg.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                            'bg-red-100 text-red-800'
+                        }">
+                            ${reg.status}
+                        </span>
+                    </div>
+                `).join('');
+            }
+            
+            // Update recent news
+            const recentNewsItems = newsArticles.slice(0, 5);
+            const recentNewsContainer = document.getElementById('recentNews');
+            
+            if (recentNewsItems.length === 0) {
+                recentNewsContainer.innerHTML = '<p class="text-gray-500 text-center">No recent news articles</p>';
+            } else {
+                recentNewsContainer.innerHTML = recentNewsItems.map(article => `
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100" onclick="viewNewsArticle(${article.id})">
+                        <div class="flex-1">
+                            <p class="font-semibold text-gray-800 line-clamp-1">${article.title}</p>
+                            <p class="text-sm text-gray-600">${article.category} • ${article.views || 0} views</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            ${article.priority === 'urgent' ? '<span class="px-2 py-1 text-xs bg-red-100 text-red-800 rounded">URGENT</span>' : ''}
+                            <span class="px-2 py-1 text-xs rounded ${
+                                article.published ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                            }">
+                                ${article.published ? 'Published' : 'Draft'}
+                            </span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // News Management Functions
+        function handleAddNews(e) {
+            e.preventDefault();
+            
+            if (!currentUser || currentUser.accountType !== 'admin') {
+                showNotification('Only administrators can add news articles.', 'error');
+                return;
+            }
+            
+            const title = document.getElementById('newsTitle').value.trim();
+            const category = document.getElementById('newsCategory').value;
+            const priority = document.getElementById('newsPriority').value;
+            const content = document.getElementById('newsContent').value.trim();
+            const publishImmediately = document.getElementById('newsPublishImmediately').checked;
+            
+            if (!title || !content) {
+                showNotification('Please fill in all required fields.', 'error');
+                return;
+            }
+            
+            const newsArticle = {
+                id: Date.now(),
+                title,
+                category,
+                priority,
+                content,
+                author: currentUser.fullName,
+                authorId: currentUser.id,
+                publishDate: new Date().toLocaleDateString(),
+                publishTime: new Date().toLocaleTimeString(),
+                timestamp: new Date().toISOString(),
+                published: publishImmediately,
+                views: 0,
+                excerpt: content.substring(0, 150) + (content.length > 150 ? '...' : '')
+            };
+            
+            newsArticles.unshift(newsArticle);
+            localStorage.setItem('mowNewsArticles', JSON.stringify(newsArticles));
+            
+            // Create notification for all users if publishing
+            if (publishImmediately) {
+                createAdminNotification({
+                    type: 'news_published',
+                    message: `New ${priority === 'urgent' ? 'URGENT' : priority === 'high' ? 'HIGH PRIORITY' : ''} news article: ${title}`,
+                    newsId: newsArticle.id,
+                    timestamp: new Date().toISOString(),
+                    priority: priority
+                });
+            }
+            
+            // Show loading state and publish immediately
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = publishImmediately ? 'Publishing to All Users...' : 'Saving Draft...';
+                submitBtn.disabled = true;
+                
+                // Simulate publishing process
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                    
+                    closeAddNewsModal();
+                    document.getElementById('addNewsForm').reset();
+                    
+                    // Update all displays immediately to reflect the published article
+                    updateAdminNewsDisplay();
+                    updateNewsDisplay();
+                    updateNewsStats();
+                    updateRecentActivity();
+                    
+                    // Update stats counters
+                    if (document.getElementById('totalNewsArticles')) {
+                        document.getElementById('totalNewsArticles').textContent = newsArticles.length;
+                    }
+                    
+                    // Notify all users if published
+                    if (publishImmediately) {
+                        // Create instant notification for all users
+                        const notification = {
+                            type: 'news_published',
+                            message: `📰 NEW ${priority === 'urgent' ? 'URGENT' : priority === 'high' ? 'HIGH PRIORITY' : ''} ARTICLE: ${title}`,
+                            newsId: newsArticle.id,
+                            timestamp: new Date().toISOString(),
+                            priority: priority,
+                            read: false
+                        };
+                        
+                        // Instantly make article available to all users
+                        showNotification(`✅ Article "${title}" has been published and is now LIVE for all users! ${priority === 'urgent' ? '🚨 Marked as URGENT' : priority === 'high' ? '⚠️ High Priority' : ''}`, 'success');
+                        
+                        // If there are any logged-in users, they would see this immediately
+                        console.log('📢 PUBLISHED TO ALL USERS:', {
+                            title: title,
+                            category: category,
+                            priority: priority,
+                            publishTime: new Date().toLocaleString(),
+                            status: 'LIVE'
+                        });
+                    } else {
+                        showNotification(`📝 Article "${title}" saved as draft. You can publish it later to make it visible to all users.`, 'info');
+                    }
+                }, 800);
+            } else {
+                closeAddNewsModal();
+                document.getElementById('addNewsForm').reset();
+                updateAdminNewsDisplay();
+                updateNewsDisplay();
+                
+                const action = publishImmediately ? 'published and is now LIVE for all users' : 'saved as draft';
+                showNotification(`News article "${title}" has been ${action}!`, 'success');
+            }
+        }
+
+        function showAddNewsModal() {
+            document.getElementById('addNewsModal').classList.remove('hidden');
+        }
+
+        function closeAddNewsModal() {
+            document.getElementById('addNewsModal').classList.add('hidden');
+            document.getElementById('addNewsForm').reset();
+        }
+
+        function updateNewsDisplay() {
+            const newsContainer = document.getElementById('newsContainer');
+            const noNewsMessage = document.getElementById('noNewsMessage');
+            const userDashboardNews = document.getElementById('userDashboardNews');
+            
+            const publishedNews = newsArticles.filter(article => article.published).slice(0, 6);
+            
+            if (publishedNews.length === 0) {
+                if (newsContainer) {
+                    newsContainer.classList.add('hidden');
+                    noNewsMessage.classList.remove('hidden');
+                }
+                if (userDashboardNews) {
+                    userDashboardNews.innerHTML = `
+                        <div class="text-center py-4">
+                            <p class="text-gray-500">No news articles available</p>
+                        </div>
+                    `;
+                }
+                return;
+            }
+            
+            if (newsContainer) {
+                newsContainer.classList.remove('hidden');
+                noNewsMessage.classList.add('hidden');
+                
+                newsContainer.innerHTML = publishedNews.map(article => `
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer" onclick="viewNewsArticle(${article.id})">
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="px-3 py-1 text-xs font-semibold rounded-full ${
+                                    article.category === 'Training' ? 'bg-blue-100 text-blue-800' :
+                                    article.category === 'Events' ? 'bg-purple-100 text-purple-800' :
+                                    article.category === 'Announcements' ? 'bg-yellow-100 text-yellow-800' :
+                                    article.category === 'Achievements' ? 'bg-green-100 text-green-800' :
+                                    'bg-gray-100 text-gray-800'
+                                }">${article.category}</span>
+                                ${article.priority === 'urgent' ? '<span class="px-2 py-1 text-xs font-bold bg-red-100 text-red-800 rounded">URGENT</span>' :
+                                  article.priority === 'high' ? '<span class="px-2 py-1 text-xs font-bold bg-orange-100 text-orange-800 rounded">HIGH</span>' : ''}
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800 mb-3 line-clamp-2">${article.title}</h4>
+                            <p class="text-gray-600 mb-4 line-clamp-3">${article.excerpt}</p>
+                            <div class="flex items-center justify-between text-sm text-gray-500">
+                                <span>By ${article.author}</span>
+                                <span>${article.publishDate}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Update user dashboard news (show latest 3)
+            if (userDashboardNews) {
+                const latestNews = publishedNews.slice(0, 3);
+                if (latestNews.length === 0) {
+                    userDashboardNews.innerHTML = `
+                        <div class="text-center py-4">
+                            <p class="text-gray-500">No news articles available</p>
+                        </div>
+                    `;
+                } else {
+                    userDashboardNews.innerHTML = latestNews.map(article => `
+                        <div class="border-l-4 ${
+                            article.priority === 'urgent' ? 'border-red-400 bg-red-50' :
+                            article.priority === 'high' ? 'border-orange-400 bg-orange-50' :
+                            'border-blue-400 bg-blue-50'
+                        } p-3 rounded cursor-pointer hover:shadow-sm transition-shadow" onclick="viewNewsArticle(${article.id})">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs font-semibold text-gray-600">${article.category}</span>
+                                ${article.priority === 'urgent' ? '<span class="text-xs font-bold text-red-600">URGENT</span>' :
+                                  article.priority === 'high' ? '<span class="text-xs font-bold text-orange-600">HIGH</span>' : ''}
+                            </div>
+                            <h5 class="font-semibold text-gray-800 text-sm mb-1 line-clamp-1">${article.title}</h5>
+                            <p class="text-xs text-gray-600 line-clamp-2">${article.excerpt}</p>
+                            <p class="text-xs text-gray-500 mt-1">${article.publishDate}</p>
+                        </div>
+                    `).join('');
+                }
+            }
+        }
+
+        function updateAdminNewsDisplay() {
+            const adminNewsContainer = document.getElementById('adminNewsContainer');
+            const noAdminNewsMessage = document.getElementById('noAdminNewsMessage');
+            
+            if (newsArticles.length === 0) {
+                adminNewsContainer.classList.add('hidden');
+                noAdminNewsMessage.classList.remove('hidden');
+                return;
+            }
+            
+            adminNewsContainer.classList.remove('hidden');
+            noAdminNewsMessage.classList.add('hidden');
+            
+            // Sort by timestamp (newest first)
+            const sortedNews = [...newsArticles].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            
+            adminNewsContainer.innerHTML = sortedNews.map(article => `
+                <div class="border rounded-lg p-4 ${article.published ? 'bg-white' : 'bg-gray-50'}">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="px-2 py-1 text-xs font-semibold rounded ${
+                                    article.category === 'Training' ? 'bg-blue-100 text-blue-800' :
+                                    article.category === 'Events' ? 'bg-purple-100 text-purple-800' :
+                                    article.category === 'Announcements' ? 'bg-yellow-100 text-yellow-800' :
+                                    article.category === 'Achievements' ? 'bg-green-100 text-green-800' :
+                                    'bg-gray-100 text-gray-800'
+                                }">${article.category}</span>
+                                ${article.priority === 'urgent' ? '<span class="px-2 py-1 text-xs font-bold bg-red-100 text-red-800 rounded">URGENT</span>' :
+                                  article.priority === 'high' ? '<span class="px-2 py-1 text-xs font-bold bg-orange-100 text-orange-800 rounded">HIGH</span>' : ''}
+                                <span class="px-2 py-1 text-xs rounded ${
+                                    article.published ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                                }">${article.published ? 'Published' : 'Draft'}</span>
+                            </div>
+                            <h5 class="font-semibold text-gray-800 mb-2">${article.title}</h5>
+                            <p class="text-sm text-gray-600 mb-2">${article.excerpt}</p>
+                            <div class="text-xs text-gray-500">
+                                <span>Published: ${article.publishDate} at ${article.publishTime}</span>
+                                <span class="ml-4">Views: ${article.views}</span>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2 ml-4">
+                            <button onclick="viewNewsArticle(${article.id})" class="text-blue-600 hover:text-blue-800 text-sm px-2 py-1 border border-blue-300 rounded hover:bg-blue-50">
+                                👁️ View
+                            </button>
+                            <button onclick="deleteNewsArticle(${article.id})" class="text-red-600 hover:text-red-800 text-sm px-2 py-1 border border-red-300 rounded hover:bg-red-50">
+                                🗑️ Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function viewNewsArticle(articleId) {
+            const article = newsArticles.find(a => a.id === articleId);
+            if (!article) return;
+            
+            // Increment view count
+            article.views = (article.views || 0) + 1;
+            localStorage.setItem('mowNewsArticles', JSON.stringify(newsArticles));
+            
+            const modal = document.getElementById('newsDetailModal');
+            const title = document.getElementById('newsDetailTitle');
+            const content = document.getElementById('newsDetailContent');
+            
+            title.textContent = article.title;
+            content.innerHTML = `
+                <div class="mb-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center space-x-2">
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full ${
+                                article.category === 'Training' ? 'bg-blue-100 text-blue-800' :
+                                article.category === 'Events' ? 'bg-purple-100 text-purple-800' :
+                                article.category === 'Announcements' ? 'bg-yellow-100 text-yellow-800' :
+                                article.category === 'Achievements' ? 'bg-green-100 text-green-800' :
+                                'bg-gray-100 text-gray-800'
+                            }">${article.category}</span>
+                            ${article.priority === 'urgent' ? '<span class="px-2 py-1 text-xs font-bold bg-red-100 text-red-800 rounded">URGENT</span>' :
+                              article.priority === 'high' ? '<span class="px-2 py-1 text-xs font-bold bg-orange-100 text-orange-800 rounded">HIGH PRIORITY</span>' : ''}
+                        </div>
+                        <div class="text-sm text-gray-500">
+                            <span>${article.views} views</span>
+                        </div>
+                    </div>
+                    <div class="text-sm text-gray-600 mb-4">
+                        <span><strong>By:</strong> ${article.author}</span>
+                        <span class="ml-4"><strong>Published:</strong> ${article.publishDate} at ${article.publishTime}</span>
+                    </div>
+                </div>
+                <div class="prose max-w-none">
+                    <div class="text-gray-700 leading-relaxed whitespace-pre-wrap">${article.content}</div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+        }
+
+        function closeNewsDetailModal() {
+            document.getElementById('newsDetailModal').classList.add('hidden');
+        }
+
+        function deleteNewsArticle(articleId) {
+            const article = newsArticles.find(a => a.id === articleId);
+            if (!article) return;
+            
+            if (confirm(`Are you sure you want to delete the article "${article.title}"? This action cannot be undone.`)) {
+                const index = newsArticles.findIndex(a => a.id === articleId);
+                if (index !== -1) {
+                    newsArticles.splice(index, 1);
+                    localStorage.setItem('mowNewsArticles', JSON.stringify(newsArticles));
+                    updateAdminNewsDisplay();
+                    updateNewsDisplay();
+                    showNotification('News article deleted successfully.', 'info');
+                }
+            }
+        }
+
+        function viewAllNews() {
+            showMainContent();
+            document.querySelector('#news').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateAdminNotifications() {
+            // Update notification badge if exists
+            const notificationBadge = document.getElementById('notificationBadge');
+            const unreadCount = getUnreadNotificationsCount();
+            
+            if (notificationBadge) {
+                if (unreadCount > 0) {
+                    notificationBadge.textContent = unreadCount;
+                    notificationBadge.classList.remove('hidden');
+                } else {
+                    notificationBadge.classList.add('hidden');
+                }
+            }
+        }
+
+        function updateAdminMembersTable() {
+            const tbody = document.getElementById('adminMembersTable');
+            
+            if (registeredMembers.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="px-6 py-4 text-center text-gray-500">No registrations found</td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            // Sort by submission date (newest first)
+            const sortedMembers = [...registeredMembers].sort((a, b) => 
+                new Date(b.submissionTimestamp) - new Date(a.submissionTimestamp)
+            );
+            
+            tbody.innerHTML = sortedMembers.map(member => `
+                <tr class="${member.status === 'pending' ? 'bg-yellow-50' : ''}">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm font-medium text-gray-900">${member.fullName}</div>
+                        <div class="text-sm text-gray-500">${member.email}</div>
+                        <div class="text-xs text-gray-400">Submitted: ${member.registrationDate}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${member.studentId}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">${member.faculty}</div>
+                        <div class="text-xs text-gray-500">${member.department}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${member.level} Level</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                            member.status === 'approved' ? 'bg-green-100 text-green-800' :
+                            member.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                            'bg-red-100 text-red-800'
+                        }">
+                            ${member.status.charAt(0).toUpperCase() + member.status.slice(1)}
+                        </span>
+                        ${member.status === 'pending' ? '<div class="text-xs text-yellow-600 mt-1">⚠️ Needs Review</div>' : ''}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button onclick="viewMemberDetails(${member.id})" class="text-blue-600 hover:text-blue-900 mr-2 mb-1 px-2 py-1 rounded border border-blue-300 hover:bg-blue-50">
+                            📋 View Details
+                        </button>
+                        ${member.status === 'pending' ? `
+                            <button onclick="approveMember(${member.id})" class="text-green-600 hover:text-green-900 mr-2 mb-1 px-2 py-1 rounded border border-green-300 hover:bg-green-50">
+                                ✅ Approve
+                            </button>
+                            <button onclick="showRejectModal(${member.id})" class="text-red-600 hover:text-red-900 mb-1 px-2 py-1 rounded border border-red-300 hover:bg-red-50">
+                                ❌ Reject
+                            </button>
+                        ` : member.status === 'approved' ? `
+                            <button onclick="viewApprovalDetails(${member.id})" class="text-green-600 hover:text-green-900 mr-2 mb-1 px-2 py-1 rounded border border-green-300 hover:bg-green-50">
+                                ✅ Approved
+                            </button>
+                        ` : `
+                            <button onclick="viewRejectionDetails(${member.id})" class="text-red-600 hover:text-red-900 mr-2 mb-1 px-2 py-1 rounded border border-red-300 hover:bg-red-50">
+                                ❌ Rejected
+                            </button>
+                        `}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            showLoginLanding();
+            showNotification('Logged out successfully!', 'success');
+        }
+
+        // Enhanced notification system
+        function showNotification(message, type = 'info') {
+            // Remove existing notifications
+            const existingNotifications = document.querySelectorAll('.notification-toast');
+            existingNotifications.forEach(notification => notification.remove());
+            
+            const notification = document.createElement('div');
+            notification.className = `notification-toast fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg max-w-sm transform transition-all duration-300 translate-x-full`;
+            
+            const colors = {
+                success: 'bg-green-600 text-white',
+                error: 'bg-red-600 text-white',
+                warning: 'bg-yellow-600 text-white',
+                info: 'bg-blue-600 text-white'
+            };
+            
+            const icons = {
+                success: '✅',
+                error: '❌',
+                warning: '⚠️',
+                info: 'ℹ️'
+            };
+            
+            notification.className += ` ${colors[type] || colors.info}`;
+            notification.innerHTML = `
+                <div class="flex items-start space-x-3">
+                    <span class="text-lg flex-shrink-0">${icons[type] || icons.info}</span>
+                    <div class="flex-1">
+                        <p class="text-sm font-medium">${message}</p>
+                    </div>
+                    <button onclick="this.parentElement.parentElement.remove()" class="text-white hover:text-gray-200 ml-2">
+                        <span class="text-lg">×</span>
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.classList.add('translate-x-full');
+                    setTimeout(() => {
+                        if (notification.parentElement) {
+                            notification.remove();
+                        }
+                    }, 300);
+                }
+            }, 5000);
+        }
+
+        // Photo upload handler
+        document.getElementById('passport').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('photoPreview');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.innerHTML = `
+                        <img src="${e.target.result}" alt="Passport Photo" class="w-32 h-32 object-cover rounded-lg mx-auto mb-2">
+                        <p class="text-green-600 font-semibold">Photo uploaded successfully</p>
+                    `;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Regime data
+        const regimeData = {
+            emeka: {
+                title: "Comrade Emeka Okafor's Regime (2001)",
+                members: [
+                    { name: "Comrade Emeka Okafor", position: "Supreme War Council Head" },
+                    { name: "Comrade Chidi Okwu", position: "Deputy War Council Head" },
+                    { name: "Comrade Adaeze Nkem", position: "Secretary General" },
+                    { name: "Comrade Obinna Ike", position: "Training Officer" },
+                    { name: "Comrade Ngozi Eze", position: "Welfare Officer" },
+                    { name: "Comrade Kelechi Obi", position: "Financial Secretary" }
+                ]
+            },
+            chioma: {
+                title: "Comrade Chioma Nwankwo's Regime (2002)",
+                members: [
+                    { name: "Comrade Chioma Nwankwo", position: "Supreme War Council Head" },
+                    { name: "Comrade Emeka Uche", position: "Deputy War Council Head" },
+                    { name: "Comrade Blessing Onu", position: "Secretary General" },
+                    { name: "Comrade Chinedu Ofor", position: "Training Officer" },
+                    { name: "Comrade Ifeoma Okoro", position: "Welfare Officer" },
+                    { name: "Comrade Ikenna Nwoke", position: "Financial Secretary" }
+                ]
+            },
+            ikechukwu: {
+                title: "Comrade Ikechukwu Eze's Regime (2003)",
+                members: [
+                    { name: "Comrade Ikechukwu Eze", position: "Supreme War Council Head" },
+                    { name: "Comrade Chidinma Okafor", position: "Deputy War Council Head" },
+                    { name: "Comrade Uchenna Nwachukwu", position: "Secretary General" },
+                    { name: "Comrade Obioma Ike", position: "Training Officer" },
+                    { name: "Comrade Adaora Nkem", position: "Welfare Officer" },
+                    { name: "Comrade Chukwuma Obi", position: "Financial Secretary" }
+                ]
+            },
+            blessing: {
+                title: "Comrade Blessing Okoro's Regime (2004)",
+                members: [
+                    { name: "Comrade Blessing Okoro", position: "Supreme War Council Head" },
+                    { name: "Comrade Kelechi Eze", position: "Deputy War Council Head" },
+                    { name: "Comrade Chioma Uche", position: "Secretary General" },
+                    { name: "Comrade Emeka Nwoke", position: "Training Officer" },
+                    { name: "Comrade Ngozi Okafor", position: "Welfare Officer" },
+                    { name: "Comrade Ikenna Okwu", position: "Financial Secretary" }
+                ]
+            },
+            chinedu: {
+                title: "Comrade Chinedu Okonkwo's Regime (2005)",
+                members: [
+                    { name: "Comrade Chinedu Okonkwo", position: "Supreme War Council Head" },
+                    { name: "Comrade Ifeoma Ike", position: "Deputy War Council Head" },
+                    { name: "Comrade Obinna Nkem", position: "Secretary General" },
+                    { name: "Comrade Adaeze Ofor", position: "Training Officer" },
+                    { name: "Comrade Chidi Okoro", position: "Welfare Officer" },
+                    { name: "Comrade Uchenna Obi", position: "Financial Secretary" }
+                ]
+            },
+            ngozi: {
+                title: "Comrade Ngozi Adaora's Regime (2006)",
+                members: [
+                    { name: "Comrade Ngozi Adaora", position: "Supreme War Council Head" },
+                    { name: "Comrade Emeka Nwachukwu", position: "Deputy War Council Head" },
+                    { name: "Comrade Blessing Eze", position: "Secretary General" },
+                    { name: "Comrade Kelechi Uche", position: "Training Officer" },
+                    { name: "Comrade Chioma Okwu", position: "Welfare Officer" },
+                    { name: "Comrade Ikechukwu Okafor", position: "Financial Secretary" }
+                ]
+            },
+            kelechi: {
+                title: "Comrade Kelechi Umeh's Regime (2007)",
+                members: [
+                    { name: "Comrade Kelechi Umeh", position: "Supreme War Council Head" },
+                    { name: "Comrade Adaora Nwoke", position: "Deputy War Council Head" },
+                    { name: "Comrade Chinedu Ike", position: "Secretary General" },
+                    { name: "Comrade Ifeoma Ofor", position: "Training Officer" },
+                    { name: "Comrade Obinna Okoro", position: "Welfare Officer" },
+                    { name: "Comrade Ngozi Nkem", position: "Financial Secretary" }
+                ]
+            },
+            favour: {
+                title: "Comrade Favour Chukwu's Regime (2008)",
+                members: [
+                    { name: "Comrade Favour Chukwu", position: "Supreme War Council Head" },
+                    { name: "Comrade Chidi Okafor", position: "Deputy War Council Head" },
+                    { name: "Comrade Emeka Eze", position: "Secretary General" },
+                    { name: "Comrade Blessing Uche", position: "Training Officer" },
+                    { name: "Comrade Chioma Nwachukwu", position: "Welfare Officer" },
+                    { name: "Comrade Kelechi Okwu", position: "Financial Secretary" }
+                ]
+            }
+        };
+
+        // War Council Select Handler
+        document.addEventListener('DOMContentLoaded', function() {
+            const warCouncilSelect = document.getElementById('warCouncilSelect');
+            const viewRegimeBtn = document.getElementById('viewRegimeBtn');
+            
+            if (warCouncilSelect && viewRegimeBtn) {
+                warCouncilSelect.addEventListener('change', function() {
+                    if (this.value) {
+                        viewRegimeBtn.disabled = false;
+                        viewRegimeBtn.classList.remove('disabled:opacity-50', 'disabled:cursor-not-allowed');
+                    } else {
+                        viewRegimeBtn.disabled = true;
+                        viewRegimeBtn.classList.add('disabled:opacity-50', 'disabled:cursor-not-allowed');
+                    }
+                });
+                
+                viewRegimeBtn.addEventListener('click', function() {
+                    const selectedOption = warCouncilSelect.options[warCouncilSelect.selectedIndex];
+                    if (selectedOption && selectedOption.dataset.regime) {
+                        showRegimeModal(selectedOption.dataset.regime);
+                    }
+                });
+            }
+        });
+
+        function showRegimeModal(regimeKey) {
+            const regime = regimeData[regimeKey];
+            if (!regime) return;
+            
+            const modal = document.getElementById('regimeModal');
+            const title = document.getElementById('regimeTitle');
+            const membersContainer = document.getElementById('regimeMembers');
+            
+            title.textContent = regime.title;
+            membersContainer.innerHTML = regime.members.map(member => `
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-800">${member.name}</h4>
+                    <p class="text-sm text-gray-600">${member.position}</p>
+                </div>
+            `).join('');
+            
+            modal.classList.remove('hidden');
+        }
+
+        function closeRegimeModal() {
+            document.getElementById('regimeModal').classList.add('hidden');
+        }
+
+        // Member management functions
+        function viewMemberDetails(memberId) {
+            const member = registeredMembers.find(m => m.id === memberId);
+            if (!member) return;
+            
+            const detailsHtml = `
+                <div class="space-y-4">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">Personal Information</h4>
+                            <div class="space-y-2 text-sm">
+                                <p><strong>Full Name:</strong> ${member.fullName}</p>
+                                <p><strong>Student ID:</strong> ${member.studentId}</p>
+                                <p><strong>Email:</strong> ${member.email}</p>
+                                <p><strong>Phone:</strong> ${member.phone}</p>
+                                <p><strong>Location:</strong> ${member.location}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">Academic Information</h4>
+                            <div class="space-y-2 text-sm">
+                                <p><strong>Faculty:</strong> ${member.faculty}</p>
+                                <p><strong>Department:</strong> ${member.department}</p>
+                                <p><strong>Level:</strong> ${member.level} Level</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-800 mb-2">Motivation</h4>
+                        <p class="text-sm text-gray-700 bg-gray-50 p-3 rounded">${member.motivation}</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-800 mb-2">Registration Details</h4>
+                        <div class="text-sm space-y-1">
+                            <p><strong>Submitted:</strong> ${member.registrationDate} at ${member.registrationTime}</p>
+                            <p><strong>Status:</strong> ${member.status.charAt(0).toUpperCase() + member.status.slice(1)}</p>
+                            ${member.reviewDate ? `<p><strong>Reviewed:</strong> ${member.reviewDate}</p>` : ''}
+                            ${member.adminNotes ? `<p><strong>Admin Notes:</strong> ${member.adminNotes}</p>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            showModal('Member Details - ' + member.fullName, detailsHtml);
+        }
+
+        function approveMember(memberId) {
+            const member = registeredMembers.find(m => m.id === memberId);
+            if (!member) return;
+            
+            if (confirm(`Are you sure you want to approve ${member.fullName}'s registration?`)) {
+                member.status = 'approved';
+                member.reviewDate = new Date().toLocaleDateString();
+                member.reviewedBy = currentUser.fullName;
+                member.adminNotes = 'Registration approved by admin.';
+                
+                // Update user status
+                const user = users.find(u => u.id === member.userId);
+                if (user) {
+                    user.registrationStatus = 'approved';
+                    localStorage.setItem('mowUsers', JSON.stringify(users));
+                }
+                
+                localStorage.setItem('mowRegistrations', JSON.stringify(registeredMembers));
+                
+                createAdminNotification({
+                    type: 'member_approved',
+                    message: `${member.fullName}'s registration has been approved`,
+                    memberId: member.id,
+                    timestamp: new Date().toISOString(),
+                    priority: 'normal'
+                });
+                
+                updateAdminMembersTable();
+                updateAdminDashboard();
+                showNotification(`${member.fullName}'s registration has been approved!`, 'success');
+            }
+        }
+
+        function showRejectModal(memberId) {
+            const member = registeredMembers.find(m => m.id === memberId);
+            if (!member) return;
+            
+            const rejectHtml = `
+                <div class="space-y-4">
+                    <p>Are you sure you want to reject <strong>${member.fullName}'s</strong> registration?</p>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Reason for rejection (optional):</label>
+                        <textarea id="rejectionReason" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="Enter reason for rejection..."></textarea>
+                    </div>
+                    <div class="flex justify-end space-x-3">
+                        <button onclick="closeModal()" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400">Cancel</button>
+                        <button onclick="rejectMember(${memberId})" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">Reject Registration</button>
+                    </div>
+                </div>
+            `;
+            
+            showModal('Reject Registration', rejectHtml);
+        }
+
+        function rejectMember(memberId) {
+            const member = registeredMembers.find(m => m.id === memberId);
+            if (!member) return;
+            
+            const reason = document.getElementById('rejectionReason')?.value || 'No reason provided';
+            
+            member.status = 'rejected';
+            member.reviewDate = new Date().toLocaleDateString();
+            member.reviewedBy = currentUser.fullName;
+            member.adminNotes = `Registration rejected. Reason: ${reason}`;
+            
+            // Update user status
+            const user = users.find(u => u.id === member.userId);
+            if (user) {
+                user.registrationStatus = 'rejected';
+                localStorage.setItem('mowUsers', JSON.stringify(users));
+            }
+            
+            localStorage.setItem('mowRegistrations', JSON.stringify(registeredMembers));
+            
+            createAdminNotification({
+                type: 'member_rejected',
+                message: `${member.fullName}'s registration has been rejected`,
+                memberId: member.id,
+                timestamp: new Date().toISOString(),
+                priority: 'normal'
+            });
+            
+            closeModal();
+            updateAdminMembersTable();
+            updateAdminDashboard();
+            showNotification(`${member.fullName}'s registration has been rejected.`, 'info');
+        }
+
+        function viewApprovalDetails(memberId) {
+            const member = registeredMembers.find(m => m.id === memberId);
+            if (!member) return;
+            
+            const detailsHtml = `
+                <div class="space-y-4">
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-green-800 mb-2">✅ Registration Approved</h4>
+                        <div class="text-sm space-y-1">
+                            <p><strong>Member:</strong> ${member.fullName}</p>
+                            <p><strong>Approved on:</strong> ${member.reviewDate}</p>
+                            <p><strong>Approved by:</strong> ${member.reviewedBy}</p>
+                            <p><strong>Notes:</strong> ${member.adminNotes}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            showModal('Approval Details', detailsHtml);
+        }
+
+        function viewRejectionDetails(memberId) {
+            const member = registeredMembers.find(m => m.id === memberId);
+            if (!member) return;
+            
+            const detailsHtml = `
+                <div class="space-y-4">
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-red-800 mb-2">❌ Registration Rejected</h4>
+                        <div class="text-sm space-y-1">
+                            <p><strong>Member:</strong> ${member.fullName}</p>
+                            <p><strong>Rejected on:</strong> ${member.reviewDate}</p>
+                            <p><strong>Rejected by:</strong> ${member.reviewedBy}</p>
+                            <p><strong>Reason:</strong> ${member.adminNotes}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            showModal('Rejection Details', detailsHtml);
+        }
+
+        // Generic modal functions
+        function showModal(title, content) {
+            // Create modal if it doesn't exist
+            let modal = document.getElementById('genericModal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'genericModal';
+                modal.className = 'hidden fixed inset-0 bg-black bg-opacity-50 z-50';
+                modal.innerHTML = `
+                    <div class="flex items-center justify-center min-h-screen p-4">
+                        <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-96 overflow-hidden modal-content">
+                            <div class="bg-blue-600 text-white p-4 flex justify-between items-center">
+                                <h3 id="genericModalTitle" class="text-xl font-bold">Modal Title</h3>
+                                <button onclick="closeModal()" class="text-white hover:text-gray-300">
+                                    <span class="text-2xl">&times;</span>
+                                </button>
+                            </div>
+                            <div class="p-6 overflow-y-auto max-h-80">
+                                <div id="genericModalContent">
+                                    <!-- Content will appear here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+            }
+            
+            document.getElementById('genericModalTitle').textContent = title;
+            document.getElementById('genericModalContent').innerHTML = content;
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('genericModal');
+            if (modal) {
+                modal.classList.add('hidden');
+            }
+        }
+
+        // Dashboard helper functions
+        function showRegistrationForm() {
+            showMainContent();
+            document.querySelector('#register').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function viewTrainingSchedule() {
+            showMainContent();
+            document.querySelector('#training').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function viewHistory() {
+            showMainContent();
+            document.querySelector('#home').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function exportData() {
+            const data = {
+                users: users.filter(u => u.accountType === 'student'),
+                registrations: registeredMembers,
+                newsArticles: newsArticles,
+                exportDate: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `mow-futo-data-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            showNotification('Data exported successfully!', 'success');
+        }
+
+        function refreshData() {
+            updateAdminDashboard();
+            showNotification('Data refreshed successfully!', 'success');
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update news display on page load
+            updateNewsDisplay();
+            
+            // Initialize smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97bc859cd367134c',t:'MTc1NzMxNDMzNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
