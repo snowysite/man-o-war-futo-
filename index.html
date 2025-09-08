@@ -65,10 +65,15 @@
             -webkit-box-orient: vertical;
         }
         .login-bg {
-            background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 50%, #1a472a 100%);
-            background-image: url("images/mow-logo.png"); 
-            background-repeat: no-repeat;
-            background-position: right;
+         background: linear-gradient(
+                135deg, 
+                #0b1f1380 0%,   /* 50% opacity */
+                #16322180 50%, 
+                #0b1f1380 100%
+              ),
+              url("images/mow-logo.png") no-repeat right;
+  background-size: cover;
+
         }
         .mow-logo-bg {
             background-image: url("images/mow-logo.png"); 
